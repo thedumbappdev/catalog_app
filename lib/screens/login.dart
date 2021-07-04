@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -6,16 +7,57 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Center(
-        child: Text(
-          "Login Screen",
-          style: TextStyle(
-            fontSize: 20,
-            color: Colors.deepPurpleAccent,
-            fontWeight: FontWeight.w500,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Image.asset(
+            "assets/images/login_img.png",
+            fit: BoxFit.cover,
           ),
-          textScaleFactor: 1.5,
-        ),
+          Text(
+            "Welcome back",
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.deepPurpleAccent,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 16.0,
+              horizontal: 32.0,
+            ),
+            child: Column(
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Enter Username',
+                    labelText: 'Username',
+                  ),
+                ),
+                TextFormField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: 'Enter Password',
+                    labelText: 'Password',
+                  ),
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                ElevatedButton(
+                  onPressed: (){},
+                  child: Text('Login',),
+                  style: TextButton.styleFrom(),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
