@@ -1,9 +1,16 @@
-import 'package:catalog_app/utils/routes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:catalog_app/utils/routes.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  String username = "";
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +26,14 @@ class LoginScreen extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
               Text(
-                "Welcome",
+                "Welcome $username",
                 style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.deepPurpleAccent,
-                  fontWeight: FontWeight.w500,
-                ),
+                    fontSize: 20.0,
+                    color: Colors.deepPurpleAccent,
+                    fontWeight: FontWeight.w500),
               ),
               SizedBox(
-                height: 20,
+                height: 20.0,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(
@@ -41,6 +47,12 @@ class LoginScreen extends StatelessWidget {
                         hintText: 'Enter Username',
                         labelText: 'Username',
                       ),
+                      onChanged: (value){
+                        username = value;
+                        setState(() {
+                          
+                        });
+                      },
                     ),
                     TextFormField(
                       obscureText: true,
@@ -53,15 +65,18 @@ class LoginScreen extends StatelessWidget {
                       height: 40.0,
                     ),
                     ElevatedButton(
-                      onPressed: (){
+                      onPressed: () {
                         Navigator.pushNamed(context, MyRoutes.homeRoute);
                       },
-                      child: Text('Login',),
+                      child: Text(
+                        'Login',
+                      ),
                       style: TextButton.styleFrom(minimumSize: Size(150, 42)),
                     ),
                   ],
                 ),
               ),
+
             ],
           ),
         ),
