@@ -1,3 +1,4 @@
+import 'package:catalog_app/utils/routes.dart';
 import 'package:flutter/material.dart';
 import './screens/home.dart';
 import './screens/login.dart';
@@ -20,15 +21,15 @@ class MyApp extends StatelessWidget {
         // textTheme: GoogleFonts.montserratTextTheme(
         //   Theme.of(context).textTheme,
         // ),
-        // fontFamily: GoogleFonts.montserrat().fontFamily,
+        fontFamily: GoogleFonts.montserrat().fontFamily,
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
       ),
       routes: {
         "/": (context) => LoginScreen(),
-        "/home": (context) => HomeScreen(),
-        "/login": (context) => LoginScreen(),
+        MyRoutes.homeRoute: (context) => HomeScreen(),
+        MyRoutes.loginRoute: (context) => LoginScreen(),
       },
     );
   }
