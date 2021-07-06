@@ -12,22 +12,21 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String username = "";
   bool onChangeButton = false;
-
   final _formKey = GlobalKey<FormState>();
 
   goToHome(BuildContext context) async {
-      if(_formKey.currentState!.validate()){
-        setState(() {
-          onChangeButton = true;
-        });
-        await Future.delayed(
-          Duration(seconds: 1),
-        );
-        await Navigator.pushNamed(context, MyRoutes.homeRoute);
-        setState(() {
-          onChangeButton = false;
-        });
-      }
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        onChangeButton = true;
+      });
+      await Future.delayed(
+        Duration(seconds: 1),
+      );
+      await Navigator.pushNamed(context, MyRoutes.homeRoute);
+      setState(() {
+        onChangeButton = false;
+      });
+    }
   }
 
   @override
@@ -67,8 +66,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           hintText: 'Enter Username',
                           labelText: 'Username',
                         ),
-                        validator: (value){
-                          if(value!.isEmpty){
+                        validator: (value) {
+                          if (value!.isEmpty) {
                             return "Username cannot be left blank";
                           }
                           return null;
@@ -84,11 +83,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           hintText: 'Enter Password',
                           labelText: 'Password',
                         ),
-                        validator: (value){
-                          if(value!.isEmpty){
+                        validator: (value) {
+                          if (value!.isEmpty) {
                             return "Password cannot be left blank";
-                          }
-                          else if(value.length < 8){
+                          } else if (value.length < 8) {
                             return "Password length should be atleast 8";
                           }
                           return null;
@@ -99,7 +97,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Material(
                         color: Colors.deepPurple,
-                        borderRadius: BorderRadius.circular(onChangeButton ? 42.0 : 8.0),
+                        borderRadius:
+                            BorderRadius.circular(onChangeButton ? 42.0 : 8.0),
                         child: InkWell(
                           onTap: () => goToHome(context),
                           child: AnimatedContainer(
