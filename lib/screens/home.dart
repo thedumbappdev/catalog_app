@@ -1,3 +1,4 @@
+import 'package:catalog_app/widgets/drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class HomeScreen extends StatelessWidget {
       body: Container(
         child: Center(child: Text("Welcome to Catalog App")),
       ),
-      drawer: Drawer(),
+      drawer: MyDrawer(),
     );
   }
 }
