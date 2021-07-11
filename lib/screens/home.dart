@@ -20,21 +20,31 @@ class _HomeScreenState extends State<HomeScreen> {
     loadData();
   }
 
-  loadData() async{
+  loadData() async {
     await Future.delayed(Duration(seconds: 2));
-    final catalogJson = await rootBundle.loadString("assets/files/catalog.json");
+    final catalogJson =
+        await rootBundle.loadString("assets/files/catalog.json");
     final decodedData = jsonDecode(catalogJson);
     var productData = decodedData["products"];
-    CatalogModel.items = List.from(productData).map<Item>((item) => Item.fromMap(item)).toList();
-    setState(() {
-      
-    });
+    CatalogModel.items =
+        List.from(productData).map<Item>((item) => Item.fromMap(item)).toList();
+    setState(() {});
     // print(productData);
   }
 
   @override
   Widget build(BuildContext context) {
     // final dummyList = List.generate(10, (index) => CatalogModel.items[0]);
+    final ButtonStyle style = ElevatedButton.styleFrom(
+      textStyle: const TextStyle(fontSize: 12),
+      padding: EdgeInsets.symmetric(
+        vertical: 0.0,
+        horizontal: 16.0,
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(100.0),
+      ),
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -44,16 +54,71 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
       ),
       body: Container(
-        child: CatalogModel.items != null && CatalogModel.items.isNotEmpty ? ListView.builder(
-          itemCount: CatalogModel.items.length,
-          itemBuilder: (context, index){
-            return ItemWidget(item: CatalogModel.items[index],);
-          },
-        ) : Center(
-          child: CircularProgressIndicator(),
-        ),
+        //CatalogModel.items != null &&
+        /*child: (CatalogModel.items.isNotEmpty)
+            ? ListView.builder(
+                itemCount: CatalogModel.items.length,
+                itemBuilder: (context, index) => ItemWidget(
+                  item: CatalogModel.items[index],
+                ),
+              )
+            : Center(
+                child: CircularProgressIndicator(),
+              ),
+      ),*/
+        child: (CatalogModel.items != null && CatalogModel.items.isNotEmpty)
+            ? GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10.0,
+                  crossAxisSpacing: 10.0,
+                ),
+                itemBuilder: (context, index) {
+                  final item = CatalogModel.items[index];
+                  return Card(
+                    clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: GridTile(
+                      header: Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(item.name),
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.all(36.0),
+                        child: Image.network(item.image),
+                      ),
+                      footer: Container(
+                        padding: EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "\$ " + item.price.toString(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {},
+                              child: const Text('Buy'),
+                              style: style,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                itemCount: CatalogModel.items.length,
+              )
+            : Center(
+                child: CircularProgressIndicator(),
+              ),
+        // drawer: MyDrawer(),
       ),
-      drawer: MyDrawer(),
     );
   }
 }
