@@ -1,6 +1,5 @@
 import 'package:catalog_app/models/catalog.dart';
 import 'package:catalog_app/widgets/drawer.dart';
-import 'package:catalog_app/widgets/item_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -117,8 +116,9 @@ class _HomeScreenState extends State<HomeScreen> {
             : Center(
                 child: CircularProgressIndicator(),
               ),
-        // drawer: MyDrawer(),
+
       ),
+      drawer: MyDrawer(),
     );
   }
 }
