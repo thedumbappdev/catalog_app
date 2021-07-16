@@ -12,7 +12,7 @@ class CatalogList extends StatelessWidget {
         shrinkWrap: true,
         itemCount: CatalogModel.items.length,
         itemBuilder: (context, index) {
-          final catalog = CatalogModel.getByPosition(index);
+          final catalog = CatalogModel.items[index];
           return InkWell(
             onTap: () => Navigator.push(
               context,
@@ -97,7 +97,7 @@ class CatalogItem extends StatelessWidget {
                           ElevatedButton(
                             onPressed: () {},
                             child: Text(
-                              "Buy",
+                              "Add to Cart",
                             ),
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all(
