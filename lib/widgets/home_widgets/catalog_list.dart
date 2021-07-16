@@ -1,6 +1,30 @@
 import 'package:catalog_app/models/catalog.dart';
+import 'package:catalog_app/screens/product_details.dart';
 import 'package:catalog_app/widgets/home_widgets/catalog_image.dart';
 import 'package:flutter/material.dart';
+
+class CatalogList extends StatelessWidget {
+  const CatalogList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: CatalogModel.items.length,
+        itemBuilder: (context, index) {
+          final catalog = CatalogModel.getByPosition(index);
+          return InkWell(
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProductDetails(catalog: catalog),
+              ),
+            ),
+            child: CatalogItem(catalog: catalog),
+          );
+        });
+  }
+}
 
 class CatalogItem extends StatelessWidget {
   final Item catalog;

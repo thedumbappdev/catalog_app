@@ -1,5 +1,5 @@
 import 'package:catalog_app/models/catalog.dart';
-import 'package:catalog_app/screens/product_details.dart';
+import 'package:catalog_app/utils/routes.dart';
 import 'package:catalog_app/widgets/drawer.dart';
 import 'package:catalog_app/widgets/home_widgets/catalog_header.dart';
 import 'package:catalog_app/widgets/home_widgets/catalog_list.dart';
@@ -38,12 +38,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          /*title: Text(
-          "Catalog App",
-          textAlign: TextAlign.center,
-        ),
-        centerTitle: true,*/
-          ),
+        backgroundColor: Colors.transparent,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.pushNamed(context, MyRoutes.cartRoute),
+        child: Icon(CupertinoIcons.cart),
+        backgroundColor: Colors.redAccent,
+      ),
       body: Container(
         padding: EdgeInsets.symmetric(
           horizontal: 16.0,
@@ -76,25 +77,4 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class CatalogList extends StatelessWidget {
-  const CatalogList({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-        shrinkWrap: true,
-        itemCount: CatalogModel.items.length,
-        itemBuilder: (context, index) {
-          final catalog = CatalogModel.items[index];
-          return InkWell(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProductDetails(catalog: catalog),
-              ),
-            ),
-            child: CatalogItem(catalog: catalog),
-          );
-        });
-  }
-}

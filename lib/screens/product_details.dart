@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:catalog_app/models/catalog.dart';
+import 'package:catalog_app/utils/routes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetails extends StatelessWidget {
@@ -28,7 +30,10 @@ class ProductDetails extends StatelessWidget {
           ElevatedButton(
             onPressed: () {},
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 30.0,),
+              padding: EdgeInsets.symmetric(
+                vertical: 10.0,
+                horizontal: 30.0,
+              ),
               child: Text(
                 "Buy",
               ),
@@ -41,7 +46,21 @@ class ProductDetails extends StatelessWidget {
           ),
         ],
       ),
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Color(0xfffbfff1),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 0.0,
+              horizontal: 8.0,
+            ),
+            child: IconButton(
+              icon: Icon(CupertinoIcons.cart),
+              onPressed: () => Navigator.pushNamed(context, MyRoutes.cartRoute),
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -50,7 +69,7 @@ class ProductDetails extends StatelessWidget {
               clipper: CustomClipping(),
               child: Container(
                 padding: EdgeInsets.only(
-                  bottom: 60.0,
+                  bottom: 30.0,
                 ),
                 decoration: BoxDecoration(
                   color: Color(0xfffbfff1),
@@ -62,7 +81,7 @@ class ProductDetails extends StatelessWidget {
                   child: Center(
                     child: Image.network(
                       catalog.image,
-                      height: 225.0,
+                      height: 200.0,
                     ),
                   ),
                 ),
@@ -84,6 +103,19 @@ class ProductDetails extends StatelessWidget {
                       catalog.desc,
                       style: TextStyle(fontSize: 14.0, color: Colors.black45),
                     ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
+                        child: Text(
+                          "When the self of conclusion grasps the surrenders of the lord, the silence will know spirit. Who can understand the trust and beauty of a lord if he has the evil emptiness of the sinner?",
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 12.0,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -100,7 +132,7 @@ class CustomClipping extends CustomClipper<Path> {
   Path getClip(Size size) {
     final path = Path();
     path.lineTo(0.0, size.height);
-    var startpoints = Offset(size.width * 0.0, size.height - 80.0);
+    var startpoints = Offset(size.width * 0.0, size.height - 50.0);
     var startcontrolpoints = Offset(size.width * 0.0, size.height);
     path.quadraticBezierTo(
       startcontrolpoints.dx,
@@ -108,7 +140,7 @@ class CustomClipping extends CustomClipper<Path> {
       startpoints.dx,
       startpoints.dy,
     );
-    var endpoints = Offset(size.width, size.height - 80.0);
+    var endpoints = Offset(size.width, size.height - 50.0);
     var endcontrolpoints = Offset(size.width * 0.5, size.height);
     path.quadraticBezierTo(
       endcontrolpoints.dx,
