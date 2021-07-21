@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:catalog_app/models/cart.dart';
+import 'package:catalog_app/screens/home.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CartScreen extends StatelessWidget {
@@ -39,7 +41,7 @@ class _CartTotal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _cart = CartModel();
-    
+
     return SizedBox(
       height: 200.0,
       child: Row(
@@ -56,7 +58,10 @@ class _CartTotal extends StatelessWidget {
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text("Buying not supported yet.", textAlign: TextAlign.center,),
+                  content: Text(
+                    "Buying not supported yet.",
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               );
             },
@@ -92,19 +97,51 @@ class _CartList extends StatefulWidget {
 
 class __CartListState extends State<_CartList> {
   final _cart = CartModel();
-  
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: _cart.items.length,
-      itemBuilder: (context, index) => ListTile(
-        leading: Icon(Icons.done),
-        trailing: IconButton(
-          icon: Icon(Icons.remove_circle_outline),
-          onPressed: () {},
+    if (_cart.items.isEmpty) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Your cart is empty",
+            style: TextStyle(
+              fontSize: 16.0,
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeScreen()),
+            ),
+            child: Text("Continue Shopping"),
+            style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all(Colors.deepPurpleAccent),
+              shape: MaterialStateProperty.all(StadiumBorder()),
+            ),
+          ),
+        ],
+      );
+    } else {
+      return ListView.builder(
+        itemCount: _cart.items.length,
+        itemBuilder: (context, index) => ListTile(
+          leading: Icon(Icons.done),
+          trailing: IconButton(
+            icon: Icon(Icons.remove_circle_outline),
+            onPressed: () {
+              _cart.removeItem(_cart.items[index]);
+              setState(() {
+                
+              });
+            },
+          ),
+          title: Text(_cart.items[index].name),
         ),
-        title: Text(_cart.items[index].name),
-      ),
-    );
+      );
+    }
   }
 }

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:catalog_app/models/catalog.dart';
 import 'package:catalog_app/utils/routes.dart';
+import 'package:catalog_app/widgets/home_widgets/add_to_cart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -27,23 +28,7 @@ class ProductDetails extends StatelessWidget {
                 fontWeight: FontWeight.w300,
                 color: Colors.red[900]),
           ),
-          ElevatedButton(
-            onPressed: () {},
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                vertical: 10.0,
-                horizontal: 30.0,
-              ),
-              child: Text(
-                "Buy",
-              ),
-            ),
-            style: ButtonStyle(
-              shape: MaterialStateProperty.all(
-                StadiumBorder(),
-              ),
-            ),
-          ),
+          AddToCart(catalog, itemCatalog: catalog,),
         ],
       ),
       appBar: AppBar(
