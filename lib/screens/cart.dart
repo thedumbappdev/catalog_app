@@ -1,9 +1,10 @@
 import 'dart:ui';
-
+import 'package:catalog_app/core/store.dart';
 import 'package:catalog_app/models/cart.dart';
 import 'package:catalog_app/screens/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -36,23 +37,21 @@ class CartScreen extends StatelessWidget {
 }
 
 class _CartTotal extends StatelessWidget {
-  const _CartTotal({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    final _cart = CartModel();
+    final CartModel _cart = (VxState.store as MyStore).cart;
 
     return SizedBox(
       height: 200.0,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Text(
-            "\$${_cart.totalPrice}",
-            style: TextStyle(
-              color: Colors.pink,
-              fontSize: 24.0,
-            ),
+          VxBuilder(
+            mutations: {RemoveMutation},
+            builder: (context, MyStore, _){
+              assert(MyStore != null);
+              return "\$${_cart.totalPrice}".text.xl5.make();
+            },
           ),
           ElevatedButton(
             onPressed: () {
@@ -89,10 +88,11 @@ class _CartTotal extends StatelessWidget {
 }
 
 class _CartList extends StatelessWidget {
-  final _cart = CartModel();
-  
   @override
   Widget build(BuildContext context) {
+    VxState.watch(context, on: [RemoveMutation]);
+    final CartModel _cart = (VxState.store as MyStore).cart;
+
     if (_cart.items.isEmpty) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -106,13 +106,12 @@ class _CartList extends StatelessWidget {
           ElevatedButton(
             onPressed: () => Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => HomeScreen()),
+              MaterialPageRoute(builder: (context) => HomeScreen()),
             ),
             child: Text("Continue Shopping"),
             style: ButtonStyle(
               backgroundColor:
-              MaterialStateProperty.all(Colors.deepPurpleAccent),
+                  MaterialStateProperty.all(Colors.deepPurpleAccent),
               shape: MaterialStateProperty.all(StadiumBorder()),
             ),
           ),
@@ -125,10 +124,7 @@ class _CartList extends StatelessWidget {
           leading: Icon(Icons.done),
           trailing: IconButton(
             icon: Icon(Icons.remove_circle_outline),
-            onPressed: () {
-              _cart.removeItem(_cart.items[index]);
-              // setState(() {});
-            },
+            onPressed: () => RemoveMutation(_cart.items[index]),
           ),
           title: Text(_cart.items[index].name),
         ),
@@ -137,3 +133,10 @@ class _CartList extends StatelessWidget {
   }
 }
 
+// return Text(
+// "\$${_cart.totalPrice}",
+// style: TextStyle(
+// color: Colors.pink,
+// fontSize: 24.0,
+// ),
+// );

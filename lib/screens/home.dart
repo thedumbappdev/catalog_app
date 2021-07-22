@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.pushNamed(context, MyRoutes.cartRoute),
-        child: Icon(CupertinoIcons.cart),
+        child: Icon(CupertinoIcons.bag),
         backgroundColor: Colors.redAccent,
       ),
       body: Container(
