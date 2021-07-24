@@ -26,7 +26,7 @@ class AddToCart extends StatelessWidget {
           AddMutation(itemCatalog);
         }
       },
-      child: isInCart ? Icon(Icons.done) : Icon(CupertinoIcons.cart),
+      child: isInCart ? Icon(CupertinoIcons.checkmark_alt) : Icon(CupertinoIcons.cart),
       style: ButtonStyle(
         shape: MaterialStateProperty.all(
           StadiumBorder(),

@@ -42,7 +42,7 @@ class _CartTotal extends StatelessWidget {
     final CartModel _cart = (VxState.store as MyStore).cart;
 
     return SizedBox(
-      height: 200.0,
+      height: 100.0,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -50,7 +50,13 @@ class _CartTotal extends StatelessWidget {
             mutations: {RemoveMutation},
             builder: (context, MyStore, _){
               assert(MyStore != null);
-              return "\$${_cart.totalPrice}".text.xl5.make();
+              return Text(
+                "\$${_cart.totalPrice}",
+                style: TextStyle(
+                  color: Colors.pink,
+                  fontSize: 24.0,
+                ),
+              );
             },
           ),
           ElevatedButton(
@@ -121,9 +127,9 @@ class _CartList extends StatelessWidget {
       return ListView.builder(
         itemCount: _cart.items.length,
         itemBuilder: (context, index) => ListTile(
-          leading: Icon(Icons.done),
+          leading: Icon(CupertinoIcons.checkmark_alt),
           trailing: IconButton(
-            icon: Icon(Icons.remove_circle_outline),
+            icon: Icon(CupertinoIcons.minus_circle),
             onPressed: () => RemoveMutation(_cart.items[index]),
           ),
           title: Text(_cart.items[index].name),
@@ -132,11 +138,3 @@ class _CartList extends StatelessWidget {
     }
   }
 }
-
-// return Text(
-// "\$${_cart.totalPrice}",
-// style: TextStyle(
-// color: Colors.pink,
-// fontSize: 24.0,
-// ),
-// );

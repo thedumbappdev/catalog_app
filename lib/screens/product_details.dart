@@ -40,7 +40,7 @@ class ProductDetails extends StatelessWidget {
               horizontal: 8.0,
             ),
             child: IconButton(
-              icon: Icon(CupertinoIcons.cart),
+              icon: Icon(CupertinoIcons.bag),
               onPressed: () => Navigator.pushNamed(context, MyRoutes.cartRoute),
             ),
           ),
