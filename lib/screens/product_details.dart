@@ -1,10 +1,13 @@
 import 'dart:ui';
 
+import 'package:catalog_app/core/store.dart';
+import 'package:catalog_app/models/cart.dart';
 import 'package:catalog_app/models/catalog.dart';
 import 'package:catalog_app/utils/routes.dart';
 import 'package:catalog_app/widgets/home_widgets/add_to_cart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class ProductDetails extends StatelessWidget {
   final Item catalog;
@@ -15,6 +18,7 @@ class ProductDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _cart = (VxState.store as MyStore).cart;
     return Scaffold(
       backgroundColor: Color(0xffebebd3),
       bottomNavigationBar: ButtonBar(
@@ -28,20 +32,36 @@ class ProductDetails extends StatelessWidget {
                 fontWeight: FontWeight.w300,
                 color: Colors.red[900]),
           ),
-          AddToCart(catalog, itemCatalog: catalog,),
+          AddToCart(
+            catalog,
+            itemCatalog: catalog,
+          ),
         ],
       ),
       appBar: AppBar(
         backgroundColor: Color(0xfffbfff1),
         actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 0.0,
-              horizontal: 8.0,
-            ),
-            child: IconButton(
-              icon: Icon(CupertinoIcons.bag),
-              onPressed: () => Navigator.pushNamed(context, MyRoutes.cartRoute),
+          VxBuilder(
+            mutations: {AddMutation, RemoveMutation},
+            builder: (ctx, MyStore, _) => Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 2.0,
+                horizontal: 8.0,
+              ),
+              child: IconButton(
+                icon: Icon(CupertinoIcons.bag),
+                onPressed: () =>
+                    Navigator.pushNamed(context, MyRoutes.cartRoute),
+              ).badge(
+                color: Vx.purple700,
+                size: 16.0,
+                count: _cart.items.length,
+                textStyle: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 10.0,
+                ),
+              ),
             ),
           ),
         ],

@@ -126,7 +126,7 @@ class _CartList extends StatelessWidget {
     } else {
       return ListView.builder(
         itemCount: _cart.items.length,
-        itemBuilder: (context, index) => ListTile(
+        itemBuilder: (context, index) => ListTile( 
           leading: Icon(CupertinoIcons.checkmark_alt),
           trailing: IconButton(
             icon: Icon(CupertinoIcons.minus_circle),
